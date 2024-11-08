@@ -1,4 +1,4 @@
-import axios, { AxiosHeaders } from "axios"
+import axios from "axios"
 import { Appbar } from "../components/Appbar"
 import { BACKEND_URL } from "../config"
 import { ChangeEvent, useState } from "react"
