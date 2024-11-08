@@ -1,7 +1,7 @@
 import z from "zod"
 
 export const signupInput = z.object({
-  email : z.string().email(),
+  email : z.string().email().regex(/^[\w.-]+@[a-zA-Z\d.-]+\.(com|org|net)$/),
   password : z.string().min(6),
   name : z.string().optional()
 })

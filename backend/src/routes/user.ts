@@ -13,10 +13,10 @@ export const userRouter = new Hono<{
 
 userRouter.post('/signup', async (c) => {
   const body = await c.req.json();
-
-  const { success, error } = signupInput.safeParse(body); 
+  console.log(body);
+  const { success } = signupInput.safeParse(body); 
   if (!success) {
-    console.log("Zod validation failed:", error); // Log validation errors
+    console.log("Zod validation failed:"); // Log validation errors
     c.status(411);
     return c.json({
       message: "Invalid inputs!!"
@@ -38,9 +38,9 @@ userRouter.post('/signup', async (c) => {
       }
     });
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ jwt });
+    return c.text(jwt);
   } catch (e) {
-    console.error("Error:", e);
+    alert("Error while signing up")
     c.status(400);
     return c.text("Invalid!");
   }
@@ -80,7 +80,7 @@ userRouter.post('/signin', async (c) => {
     }
 
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ jwt });
+    return c.text(jwt);
   } catch (e) {
     c.status(411);
     return c.text("Invalid");
